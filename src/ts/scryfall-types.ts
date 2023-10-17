@@ -35,6 +35,7 @@ export interface ScryfallMtgCard {
   image_uris: ScryfallImageUris
   oversized: boolean
   prices: ScryfallMtgCardPrices
+  purchase_uris: ScryfallPurchaseUris
   promo: boolean
   rarity: MtgCardRarity
   released_at: Date
@@ -95,4 +96,8 @@ interface ScryfallImageUris {
   png: string
   art_crop: string
   border_crop: string
+}
+
+interface ScryfallPurchaseUris {
+  tcgplayer?: string
 }

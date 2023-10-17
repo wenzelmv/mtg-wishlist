@@ -1,27 +1,51 @@
 <template>
   <div class="container">
-    <input v-model="searchQuery" placeholder="Search for cards" type="text" />
-    <button @click="searchCards">Search</button>
-    <div class="card-grid">
-      <div class="card" v-for="card in cards" :key="card.id">
-        <img
-          v-if="card.image_uris && card.image_uris.normal"
-          :src="card.image_uris.normal"
-          alt="card.name"
-        />
+    <div class="card-search">
+      <input
+        v-model="searchQuery"
+        placeholder="Search for cards"
+        type="text"
+        @keyup.enter="searchCards"
+      />
+      <div class="card-grid">
+        <div class="card-info" v-for="card in filteredCards" :key="card.id">
+          <div class="card">
+            <img
+              v-if="card.image_uris && card.image_uris.normal"
+              :src="card.image_uris.normal"
+              alt="card.name"
+              class="card-image"
+            />
+          </div>
+          <AppLink
+            v-if="card.purchase_uris"
+            :to="card.purchase_uris.tcgplayer"
+            class="tcgplayer-link"
+          >
+            <IconLightningBolt :width="18" :height="18" />
+            <p>Buy @ TCGPlayer: ${{ card.prices.usd }}</p>
+          </AppLink>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import axios from 'axios'
 import type { ScryfallMtgCard } from '../ts/scryfall-types'
+import AppLink from '@/components/AppLink.vue'
+import IconLightningBolt from '@/components/icons/IconLightningBolt.vue'
 
 const searchQuery = ref<string>('')
 const cards = ref<ScryfallMtgCard[]>([])
+// Filter out digital cards
+const filteredCards = computed(() => {
+  return cards.value.filter((card) => !card.digital)
+})
 
+// Timeout function to delay 'ms' milliseconds
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 /* Searches for cards according to scryfall documentation: https://scryfall.com/docs/syntax */
@@ -45,17 +69,70 @@ async function searchCards() {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  margin-top: 5vh;
+  gap: 30px;
+}
+
 .card-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 24px;
+  max-height: 65vh;
 }
 
-.container {
+.card {
+  transition: 0.2s ease-out;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 12px;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.tcgplayer-link {
+  align-self: center;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  height: 100vh;
+  border: 1px solid orange;
+  border-radius: 4px;
+  transition: 0.2s ease-in-out;
+  padding: 4px 24px;
+}
+
+.tcgplayer-link:hover {
+  color: orange;
+}
+
+.card-image {
+  width: 250px;
+  border-radius: 10px;
+}
+
+.card-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type='text'] {
+  padding: 10px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  width: 525px;
+  margin-bottom: 5vh;
 }
 </style>
