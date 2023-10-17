@@ -36,7 +36,6 @@ const register = () => {
 }
 
 const signInWithGoogle = () => {
-  console.log('TEST')
   const provider = new GoogleAuthProvider()
   signInWithPopup(getAuth(), provider)
     .then((result) => {
