@@ -104,6 +104,7 @@ async function searchCards() {
   color: transparent;
   margin-left: 19px;
   margin-top: 14px;
+  user-select: none;
   font-family: 'Beleren';
 }
 
