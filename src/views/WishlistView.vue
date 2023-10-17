@@ -17,6 +17,7 @@
               class="card-image"
             />
           </div>
+          <p class="card-name-invisible">{{ card.name }}</p>
           <AppLink
             v-if="card.purchase_uris"
             :to="card.purchase_uris.tcgplayer"
@@ -69,6 +70,12 @@ async function searchCards() {
 </script>
 
 <style scoped>
+.card-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -89,16 +96,21 @@ async function searchCards() {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: relative;
+}
+
+.card-name-invisible {
+  position: absolute;
+  color: transparent;
+  margin-left: 19px;
+  margin-top: 14px;
+  font-family: 'Beleren';
 }
 
 .card-info {
   display: flex;
   flex-direction: column;
   gap: 18px;
-}
-
-.card:hover {
-  transform: scale(1.1);
 }
 
 .tcgplayer-link {
@@ -119,12 +131,6 @@ async function searchCards() {
 .card-image {
   width: 250px;
   border-radius: 10px;
-}
-
-.card-search {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 input[type='text'] {
