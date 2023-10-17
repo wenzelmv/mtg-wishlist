@@ -17,14 +17,17 @@ const routes = [
     component: () => import('../views/AboutView.vue')
   },
   {
-    path: '/wishlist',
-    name: 'wishlist',
-    component: () => import('../views/WishlistView.vue')
+    path: '/card-search',
+    name: 'card-search',
+    component: () => import('../views/CardSearchView.vue')
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/LoginView.vue')
+    path: '/wishlist',
+    name: 'wishlist',
+    component: () => import('../views/WishlistView.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/register',
@@ -35,14 +38,6 @@ const routes = [
     path: '/sign-in',
     name: 'sign-in',
     component: () => import('@/views/SignInView.vue')
-  },
-  {
-    path: '/feed',
-    name: 'feed',
-    component: () => import('@/views/FeedView.vue'),
-    meta: {
-      requiresAuth: true
-    }
   },
   {
     path: '/:pathMatch(.*)*',

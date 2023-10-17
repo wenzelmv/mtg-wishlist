@@ -40,7 +40,7 @@ const signInWithGoogle = () => {
   signInWithPopup(getAuth(), provider)
     .then((result) => {
       console.log(result.user)
-      router.push('/feed')
+      router.push('/')
     })
     .catch((error) => {
       // handle error

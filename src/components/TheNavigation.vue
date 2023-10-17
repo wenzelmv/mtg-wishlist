@@ -4,8 +4,8 @@
       <div class="left-items">
         <AppLink to="/">Home</AppLink>
         <AppLink to="/about">About</AppLink>
+        <AppLink to="/card-search">Card Search</AppLink>
         <AppLink to="/wishlist">Wishlist</AppLink>
-        <AppLink to="/feed">Feed</AppLink>
       </div>
       <div class="right-items">
         <!-- <AppLink to="#">Login</AppLink> -->
@@ -64,7 +64,7 @@ nav {
   justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
 }
 .nav-items a:hover {
   color: orange;
